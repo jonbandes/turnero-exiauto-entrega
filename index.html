@@ -97,25 +97,24 @@
 
     /* ── Code block ──────────────────────────────────── */
     pre {
-      background: #0f172a !important; color: #f1f5f9 !important;
-      border-radius: 8px; padding: 18px 20px;
-      font-size: 13.5px; line-height: 1.65;
-      overflow-x: auto; margin: 12px 0 20px;
-    }
-    pre * {
-      background: transparent !important;
-      color: #f1f5f9 !important;
-      border: none !important;
-      padding: 0 !important;
-      font-size: inherit !important;
-      text-decoration: none !important;
+      background: #f1f5f9;
+      color: #1e293b;
+      border-left: 4px solid #94a3b8;
+      border-radius: 0 6px 6px 0;
+      padding: 16px 20px;
+      font-family: 'Courier New', monospace;
+      font-size: 13.5px;
+      line-height: 1.8;
+      overflow-x: auto;
+      margin: 12px 0 20px;
+      white-space: pre;
     }
     code { font-family: 'Courier New', monospace; }
 
-    /* ── Inline code (fuera de pre) ──────────────────── */
+    /* ── Inline code ─────────────────────────────────── */
     :not(pre) > code {
       background: #f3f4f6; border: 1px solid #e5e7eb;
-      border-radius: 3px; padding: 1px 5px !important;
+      border-radius: 3px; padding: 1px 5px;
       font-size: .9em; color: #374151;
     }
 
@@ -441,36 +440,36 @@ PENDIENTE  →  EN_ESPERA  →  LLAMADO  →  EN_ATENCIÓN  →  FINALIZADO
         <div>
           <strong>Crea el archivo de variables de entorno</strong>
           <p>Dentro de la carpeta <code>backend/</code>, crea un archivo llamado <code>.env</code> con este contenido:</p>
-<pre><code>SECRET_KEY=cambia-esto-por-una-clave-secreta-larga-aleatoria
+<pre>SECRET_KEY=cambia-esto-por-una-clave-secreta-larga-aleatoria
 DEBUG=True
 ALLOWED_HOSTS=localhost,127.0.0.1
 DATABASE_URL=postgresql://exiauto:exiauto@db:5432/turnero_exiauto
 REDIS_URL=redis://redis:6379/0
 DJANGO_SUPERUSER_USERNAME=admin
 DJANGO_SUPERUSER_PASSWORD=admin123
-DJANGO_SUPERUSER_EMAIL=admin@exiauto.com</code></pre>
+DJANGO_SUPERUSER_EMAIL=admin@exiauto.com</pre>
         </div>
       </li>
       <li>
         <div>
           <strong>Levanta la base de datos y Redis</strong>
           <p>Desde la carpeta <code>backend/</code> ejecuta:</p>
-<pre><code>docker compose up -d db redis</code></pre>
+<pre>docker compose up -d db redis</pre>
           <p>Espera ~5 segundos a que PostgreSQL esté listo (el <code>healthcheck</code> lo verifica automáticamente).</p>
         </div>
       </li>
       <li>
         <div>
           <strong>Aplica migraciones y carga datos de prueba</strong>
-<pre><code>docker compose run --rm web python manage.py migrate
-docker compose run --rm web python manage.py cargar_datos_prueba</code></pre>
+<pre>docker compose run --rm web python manage.py migrate
+docker compose run --rm web python manage.py cargar_datos_prueba</pre>
           <p>Esto crea los usuarios, módulos y turnos de prueba automáticamente.</p>
         </div>
       </li>
       <li>
         <div>
           <strong>Levanta el servidor</strong>
-<pre><code>docker compose up web</code></pre>
+<pre>docker compose up web</pre>
           <p>El servidor queda en: <a href="http://localhost:8000" target="_blank">http://localhost:8000</a></p>
         </div>
       </li>
@@ -483,17 +482,17 @@ docker compose run --rm web python manage.py cargar_datos_prueba</code></pre>
 
     <h3>Correr sin Docker (Python directo)</h3>
     <p>Si prefieres correr sin Docker, necesitas Python 3.11+, PostgreSQL y Redis instalados localmente. Luego:</p>
-<pre><code>cd backend
+<pre>cd backend
 python -m venv .venv && source .venv/bin/activate   # En Windows: .venv\Scripts\activate
 pip install -r requirements.txt
 # Copia y edita el .env con los datos de tu base de datos local
 python manage.py migrate
 python manage.py cargar_datos_prueba
-daphne -b 0.0.0.0 -p 8000 config.asgi:application</code></pre>
+daphne -b 0.0.0.0 -p 8000 config.asgi:application</pre>
 
     <h3>Correr los tests</h3>
-<pre><code>cd backend
-pytest   # 124 pruebas, 0 fallos</code></pre>
+<pre>cd backend
+pytest   # 124 pruebas, 0 fallos</pre>
   </section>
 
   <!-- ══════════════════════════════════════════════════════
